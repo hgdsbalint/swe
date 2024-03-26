@@ -1,0 +1,104 @@
+var countries = new CountryRepository().getAll();
+        //countries.stream().forEach(System.out::println); összes kiiratás
+
+        //nev szerint növekvőbe rendez 100m fölötti lakosság
+        /*countries.stream()
+                .filter(t -> t.population() > 100000000)
+                .map(Country::population)
+                .sorted(Comparator.naturalOrder())
+                .forEach(System.out::println); */
+        //10 legkisebb lakosú ország
+        /*countries.stream().
+                sorted(Comparator.comparingLong(Country::population)).
+                limit(10).
+                map(Country::name).
+                forEach(System.out::println);*/
+        //lakosság szerint rendezve
+        /*countries.stream()
+                .filter(t -> t.region() == Region.EUROPE)
+                .sorted(Comparator.comparing(Country::population))
+                .map(Country::name)
+                .forEach(System.out::println);*/
+
+        //Ázsia népessége
+        /*System.out.println(countries.stream()
+                .filter(country -> country.region() == Region.ASIA)
+                .mapToLong(Country::population)
+                .sum());
+        */
+
+        //Afrika legnépesebb országa
+        /*var mostPopulusCounty = countries.stream()
+                .filter(country -> country.region() == Region.AFRICA)
+                .max(Comparator.comparing(Country::population))
+                .map(Country::name)
+                .get();*/
+
+        //System.out.println(mostPopulusCounty);
+
+        //Európai országok száma
+        /*var numberOfEuropeanCountries = countries.stream()
+                .filter(country -> country.region() ==Region.EUROPE)
+                .count();
+
+        System.out.println(numberOfEuropeanCountries);*/
+
+        //Kiirja az európai fővárosokat
+       /*countries.stream()
+                .filter(country -> country.region() == Region.EUROPE)
+                .map(Country::capital)
+                .forEach(System.out::println);*/
+
+        //Kiirja hány különböző időzóna van
+       /*var numberOfTimeszone = countries.stream().flatMap(country -> country.timezones().stream())
+                .distinct()
+                .count();
+        System.out.println(numberOfTimeszone);*/
+
+        //Kiirja a különböző időzónákat
+        /*countries.stream()
+                .flatMap(country -> country.timezones().stream())
+                .distinct()
+                .forEach(System.out::println);*/
+
+        //Kiirja a legrövidebb nevű országot(mivel több van ezért a listában az utolsót)
+        /*countries.stream()
+                .map(Country::name)
+                .reduce((x,y) -> x.length() < y.length() ? x : y)
+                .ifPresent(System.out::println);*/
+
+        //Kiirja a 10 legnépesebb országot
+        /*countries.stream()
+                .sorted(Comparator.comparing(Country::population).reversed())
+                .limit(10)
+                .map(Country::name)
+                .forEach(System.out::println);*/
+
+        /*System.out.println(countries.stream()
+                .mapToInt(country -> country.translations().size())
+                .summaryStatistics());*/
+
+        /*countries.stream()
+                .sorted(Comparator.comparingInt(country -> country.timezones().size()))
+                .map(Country::name)
+                .forEach(System.out::println);*/
+
+        /*
+        //Országok amiknek null a területük
+        countries.stream()
+                .filter(country -> country.area() == null)
+                .map(Country::name)
+                .forEach(System.out::println);
+        */
+        //Átlagos országnév hosszúság
+        /*
+        System.out.println( countries.stream()
+                .mapToInt(country -> country.name().length())
+                .average()
+                .getAsDouble());*/
+
+        //összes időzóna európában és ázsiában de mindegyik csak egyszer
+        /*countries.stream().filter(country -> country.region() == Region.ASIA || country.region() == Region.EUROPE)
+                .flatMap(country -> country.timezones().stream())
+                .distinct()
+                .forEach(System.out::println);*/
